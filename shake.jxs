@@ -1,0 +1,49 @@
+<jittershader name="shake">
+	<description>
+	Shake
+	</description>
+	<param name="shake" type="float" default="0.0" />	
+	<param name="preview" type="bool" default="0.0" />
+	<param name="zoom" type="float" default="0.8" />
+	<param name="direction" type="vec2" default="0.0 1.0" />	
+	<language name="glsl" version="2.1">
+		<bind param="shake" program="fp" />		
+		<bind param="preview" program="fp" />
+		<bind param="zoom" program="fp" />
+		<bind param="direction" program="fp" />
+		<program name="vp" type="vertex" source="sh.passthrudim.vp.glsl" />
+		<program name="fp" type="fragment">
+<![CDATA[
+uniform sampler2DRect tex0;
+varying vec2 texcoord0;
+varying vec2 texdim0;
+
+uniform float zoom;
+uniform bool preview;
+uniform float shake;
+uniform vec2 direction;
+
+void main()
+{
+	vec2 uv = texcoord0/texdim0;
+	uv -= 0.5;
+	uv += 0.5/zoom;
+	uv *= zoom;
+	
+	uv += vec2(shake*direction);
+
+	vec4 color = texture2DRect(tex0, uv*texdim0);
+
+	if(texcoord0.x < (texdim0.x/2.) && preview){
+		vec2 pos = texcoord0;
+		pos.x += texdim0.x/2.;
+		gl_FragColor = texture2DRect(tex0, pos);
+	}else{
+		gl_FragColor = color;
+	}
+}
+
+]]>
+		</program>
+	</language>
+</jittershader>
