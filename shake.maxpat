@@ -988,9 +988,9 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_gl_texture", "" ],
-					"patching_rect" : [ 73.0, 491.0, 225.0, 22.0 ],
+					"patching_rect" : [ 73.0, 491.0, 187.0, 22.0 ],
 					"style" : "",
-					"text" : "jit.gl.slab mainout @file shake-wcolor.jxs"
+					"text" : "jit.gl.slab mainout @file shake.jxs"
 				}
 
 			}
